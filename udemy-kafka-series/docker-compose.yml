@@ -1,0 +1,27 @@
+version: '3'
+services:
+  kafka1:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka2
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_LISTENERS: PLAINTEXT://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://172.23.208.1:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 
+      KAFKA_ZOOKEEPER_CONNECT: 172.23.208.1:2181
+    ports:
+      - "9093:9093"
+
+  kafka2:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka3
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_LISTENERS: PLAINTEXT://:9094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://172.23.208.1:9094
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_ZOOKEEPER_CONNECT: 172.23.208.1:2181
+    ports:
+      - "9094:9094"
+    depends_on:
+      - kafka1

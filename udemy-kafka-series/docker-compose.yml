@@ -1,16 +1,27 @@
 version: '3'
 services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper2
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2179:2181"
+
   kafka1:
     image: confluentinc/cp-kafka:latest
     container_name: kafka2
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_LISTENERS: PLAINTEXT://:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://172.23.208.1:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093  # Use HOST_IP from .env
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 
-      KAFKA_ZOOKEEPER_CONNECT: 172.23.208.1:2181
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181  # Use the ZooKeeper service name as the hostname
     ports:
       - "9093:9093"
+    depends_on:
+      - zookeeper
 
   kafka2:
     image: confluentinc/cp-kafka:latest
@@ -18,9 +29,9 @@ services:
     environment:
       KAFKA_BROKER_ID: 3
       KAFKA_LISTENERS: PLAINTEXT://:9094
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://172.23.208.1:9094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9094  # Use HOST_IP from .env
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_ZOOKEEPER_CONNECT: 172.23.208.1:2181
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181  # Use the ZooKeeper service name as the hostname
     ports:
       - "9094:9094"
     depends_on:

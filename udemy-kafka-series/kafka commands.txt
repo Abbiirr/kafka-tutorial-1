@@ -1,0 +1,26 @@
+kafka-topics --list --bootstrap-server 172.30.192.1:9091
+
+kafka-topics --bootstrap-server 172.30.192.1:9091 --topic first_topic --create --partitions 3 --replication-factor 2
+
+kafka-topics --bootstrap-server 172.30.192.1:9091 --describe --topic first_topic
+
+kafka-console-producer  --bootstrap-server 172.30.192.1:9091 --topic first_topic
+
+kafka-console-consumer  --bootstrap-server 172.30.192.1:9091 --topic first_topic
+
+
+kafka-console-consumer --bootstrap-server 172.30.192.1:9091 --topic first_topic --group my-first-application
+
+kafka-console-consumer --bootstrap-server 172.30.192.1:9091 --topic first_topic --group my-first-application
+
+docker run -d --rm -p 9000:9000 ^
+    -e KAFKA_BROKERCONNECT=172.30.192.1:9091 ^
+    -e JVM_OPTS="-Xms32M -Xmx64M" ^
+    -e SERVER_SERVLET_CONTEXTPATH="/" ^
+    obsidiandynamics/kafdrop
+
+    /etc/kafka
+
+kafka-consumer-groups --bootstrap-server 172.30.192.1:9091 --list
+
+kafka-consumer-groups --bootstrap-server 172.30.192.1:9091 --describe --group my-first-application

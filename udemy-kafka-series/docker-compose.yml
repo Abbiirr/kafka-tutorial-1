@@ -2,37 +2,37 @@ version: '3'
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
-    container_name: zookeeper2
+    container_name: zookeeper
     environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_CLIENT_PORT: ${ZOOKEEPER_PORT}
       ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - "2179:2181"
+      - "${ZOOKEEPER_PORT}:${ZOOKEEPER_PORT}"
 
   kafka1:
     image: confluentinc/cp-kafka:latest
-    container_name: kafka2
+    container_name: kafka1
     environment:
-      KAFKA_BROKER_ID: 2
-      KAFKA_LISTENERS: PLAINTEXT://:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093  # Use HOST_IP from .env
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENERS: PLAINTEXT://:9091
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${HOST_IP}:9091  # Use HOST_IP from .env
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1 
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181  # Use the ZooKeeper service name as the hostname
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:${ZOOKEEPER_PORT}  # Use the ZooKeeper service name as the hostname
     ports:
-      - "9093:9093"
+      - "9091:9091"
     depends_on:
       - zookeeper
 
   kafka2:
     image: confluentinc/cp-kafka:latest
-    container_name: kafka3
+    container_name: kafka2
     environment:
-      KAFKA_BROKER_ID: 3
-      KAFKA_LISTENERS: PLAINTEXT://:9094
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9094  # Use HOST_IP from .env
+      KAFKA_BROKER_ID: 2
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${HOST_IP}:9092  # Use HOST_IP from .env
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181  # Use the ZooKeeper service name as the hostname
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:${ZOOKEEPER_PORT}  # Use the ZooKeeper service name as the hostname
     ports:
-      - "9094:9094"
+      - "9092:9092"
     depends_on:
       - kafka1

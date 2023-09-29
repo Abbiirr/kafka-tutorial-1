@@ -8,6 +8,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "${ZOOKEEPER_PORT}:${ZOOKEEPER_PORT}"
+    # command: sh -c "sleep 10 && /etc/confluent/docker/run"
 
   kafka1:
     image: confluentinc/cp-kafka:latest
@@ -50,3 +51,14 @@ services:
       CONNECT_BOOTSTRAP_SERVERS: kafka1:${KAFKA_PORT_1},kafka2:${KAFKA_PORT_2}
       KAFKA_ZOOKEEPER_PROTOCOL: PLAINTEXT
       ALLOW_PLAINTEXT_LISTENER: yes
+
+  conduktor:
+    image: conduktor/kafka
+    container_name: conduktor
+    ports:
+      - "8380:8380" # Conduktor Web UI
+    environment:
+      - "CONNECT_BOOTSTRAP_SERVERS=kafka1:9091,kafka2:9092"
+      - "ALLOW_PLAINTEXT_LISTENER=yes"
+      - "KAFKA_ZOOKEEPER_PROTOCOL=PLAINTEXT" # Specify PLAINTEXT protocol
+      - "KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181" # Use the ZooKeeper service name as the hostname

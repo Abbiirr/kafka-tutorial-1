@@ -1,16 +1,16 @@
 package org.example;
 
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringSerializer;
+
 import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
-        String bootstrapServers = "kafka1:9092";
-        Properties properties = new Properties();
-        properties.setProperty("bootstrap.servers", bootstrapServers);
-        properties.setProperty("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        properties.setProperty("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-
-
-        System.out.println("Hello world!");
+//        ProducerDemo producerDemo = new ProducerDemo();
+        ProducerWithCallBack producerWithCallBack = new ProducerWithCallBack();
+        producerWithCallBack.sendMessage(10);
     }
 }

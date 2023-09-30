@@ -2,7 +2,12 @@ kafka-topics --list --bootstrap-server kafka0:9092
 
 kafka-topics --bootstrap-server kafka0:9092 --topic first_topic --create --partitions 3 --replication-factor 1
 
+kafka-topics --bootstrap-server kafka0:9092 --topic __consumer_offsets --create --partitions 3 --replication-factor 1
+
 kafka-topics --bootstrap-server kafka0:9092 --describe --topic first_topic
+
+kafka-topics --bootstrap-server kafka0:9092 --delete --topic first_topic
+
 
 kafka-console-producer  --bootstrap-server kafka0:9092 --topic first_topic
 
@@ -10,6 +15,12 @@ kafka-console-consumer  --bootstrap-server kafka0:9092 --topic first_topic
 
 
 kafka-console-consumer --bootstrap-server kafka0:9092 --topic first_topic --group my-first-application
+
+kafka-console-consumer --bootstrap-server kafka0:9092 --topic first_topic --group my-fifth-application
+
+kafka-console-consumer --bootstrap-server kafka0:9092 --topic first_topic --group my-fourth-application
+
+
 
 kafka-console-consumer --bootstrap-server kafka0:9092 --topic first_topic --group my-first-application
 
@@ -26,3 +37,5 @@ kafka-consumer-groups --bootstrap-server kafka0:9092 --list
 kafka-consumer-groups --bootstrap-server kafka0:9092 --describe --group my-first-application
 
 docker run -it -p 9094:9094 -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181 -e ALLOW_PLAINTEXT_LISTENER=yes conduktor/kafka
+
+kafka-topics --bootstrap-server localhost:9092 --describe --topic your_topic_name

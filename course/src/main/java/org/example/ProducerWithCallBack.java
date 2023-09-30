@@ -16,13 +16,11 @@ public class ProducerWithCallBack {
     public void sendMessage(int number) {
         KafkaProducer<String, String> producer = getStringStringKafkaProducer();
 
-        String topic = "first_topic";
-
         for(int i=0;i<number;i++) {
             String message = "hello world "+(i+1);
             String key = "id_"+((i)%3);
 
-            ProducerRecord<String, String> record = new ProducerRecord<>(topic, key,message);
+            ProducerRecord<String, String> record = new ProducerRecord<>(CommonConfig.topic, key,message);
 
 //            logger.info("Key: "+key);
 
@@ -51,7 +49,7 @@ public class ProducerWithCallBack {
     private static KafkaProducer<String, String> getStringStringKafkaProducer() {
         String bootstrapServers = "localhost:9092";
         Properties properties = new Properties();
-        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, CommonConfig.bootstrapServers);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 //        properties.setProperty(ProducerConfig.PARTITIONER_CLASS_CONFIG, RoundRobinPartitioner.class.getName());

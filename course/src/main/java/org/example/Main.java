@@ -12,5 +12,9 @@ public class Main {
 //        ProducerDemo producerDemo = new ProducerDemo();
         ProducerWithCallBack producerWithCallBack = new ProducerWithCallBack();
         producerWithCallBack.sendMessage(100);
+//        ConsumerDemo consumerDemo = new ConsumerDemo();
+//        consumerDemo.consumeMessage("my-fourth-application");
+        ConsumerAssignSeek consumerAssignSeek = new ConsumerAssignSeek();
+        consumerAssignSeek.consumeMessage();
     }
 }

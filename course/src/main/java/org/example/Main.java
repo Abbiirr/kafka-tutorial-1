@@ -11,6 +11,6 @@ public class Main {
     public static void main(String[] args) {
 //        ProducerDemo producerDemo = new ProducerDemo();
         ProducerWithCallBack producerWithCallBack = new ProducerWithCallBack();
-        producerWithCallBack.sendMessage(10);
+        producerWithCallBack.sendMessage(100);
     }
 }

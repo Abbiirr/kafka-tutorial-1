@@ -47,7 +47,7 @@ public class ProducerWithCallBack {
     }
 
     private static KafkaProducer<String, String> getStringStringKafkaProducer() {
-        String bootstrapServers = "localhost:9092";
+//        String bootstrapServers = "localhost:8097";
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, CommonConfig.bootstrapServers);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());

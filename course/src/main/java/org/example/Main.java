@@ -9,12 +9,13 @@ import java.util.Properties;
 
 public class Main {
     public static void main(String[] args) {
-//        ProducerDemo producerDemo = new ProducerDemo();
+        ProducerDemo producerDemo = new ProducerDemo();
         ProducerWithCallBack producerWithCallBack = new ProducerWithCallBack();
         producerWithCallBack.sendMessage(100);
 //        ConsumerDemo consumerDemo = new ConsumerDemo();
 //        consumerDemo.consumeMessage("my-fourth-application");
         ConsumerAssignSeek consumerAssignSeek = new ConsumerAssignSeek();
         consumerAssignSeek.consumeMessage();
+//        System.out.println("Hello World");
     }
 }
